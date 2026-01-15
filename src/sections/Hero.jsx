@@ -33,10 +33,10 @@ function Hero({ className = "", onFloatingIconClick, ...props }) {
       <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-5">
         {/* Left: Title and Subtitle */}
         <div className="flex-1">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 mb-2 md:mb-3 lg:mb-4 text-center md:text-left">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold bg-linear-to-r from-[#38b6ff] to-[#05395e] bg-clip-text text-transparent mb-2 md:mb-3 lg:mb-4 text-center md:text-left">
             Welcome to Kenkoo.
           </h2>
-          <p className="text-sm md:text-base lg:text-lg xl:text-xl text-gray-600 text-center md:text-left">
+          <p className="text-shadow-md md:text-base lg:text-lg xl:text-xl text-[#05395e] text-center md:text-left">
             Scan. Analyze. Share your health journey.
           </p>
         </div>

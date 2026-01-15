@@ -14,7 +14,7 @@ function Header({ className = "", ...props }) {
       </div>
 
       {/* App name */}
-      <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-blue-500">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#109def]">
         Kenkoo
       </h1>
     </header>

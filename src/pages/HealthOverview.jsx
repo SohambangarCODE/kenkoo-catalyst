@@ -159,7 +159,7 @@ function HealthOverview() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 xl:px-12 py-4 md:py-6 lg:py-8">
         {/* Header */}
         <div className="mb-6 md:mb-8">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#109def] mb-2">
             Health Overview
           </h1>
           <p className="text-sm md:text-base text-gray-600">
@@ -172,7 +172,7 @@ function HealthOverview() {
           {/* Report Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 gap-4">
             <div>
-              <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-1">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-[#109def] mb-1">
                 Blood Test Report
               </h2>
               <div className="flex flex-wrap items-center gap-2 md:gap-3 text-sm md:text-base text-gray-600">
@@ -222,7 +222,7 @@ function HealthOverview() {
 
           {/* Key Results */}
           <div className="mb-6 md:mb-8">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b] mb-4 md:mb-6">
               Key Results
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
@@ -295,7 +295,7 @@ function HealthOverview() {
 
           {/* Trends Over Time */}
           <div className="mb-6 md:mb-8">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b] mb-4 md:mb-6">
               Trends Over Time
             </h3>
             <div className="space-y-6 md:space-y-8">
@@ -412,7 +412,7 @@ function HealthOverview() {
 
           {/* Insights */}
           <div className="mb-6 md:mb-8">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b] mb-4 md:mb-6">
               Insights
             </h3>
             <div className="space-y-3 md:space-y-4">
@@ -447,7 +447,7 @@ function HealthOverview() {
 
           {/* Recommendations */}
           <div>
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b] mb-4 md:mb-6">
               Recommendations
             </h3>
             <div className="space-y-2 md:space-y-3">

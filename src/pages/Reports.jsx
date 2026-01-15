@@ -200,7 +200,7 @@ function Reports() {
 
         {/* My Reports Section */}
         <div className="mb-6 md:mb-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#109def] mb-2">
             My Reports
           </h2>
           <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
@@ -285,7 +285,7 @@ function Reports() {
         {/* Recent Reports Section */}
         <div>
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#109def]">
               Recent Reports
             </h2>
             <button className="text-blue-500 hover:text-blue-600 text-sm md:text-base font-medium transition-colors">

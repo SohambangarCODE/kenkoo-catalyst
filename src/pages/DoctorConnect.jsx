@@ -97,7 +97,7 @@ function DoctorConnect({ onBack }) {
         {/* Header with Back Button */}
         <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
           
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#109def]">
             Consult Doctor
           </h1>
         </div>
@@ -173,7 +173,7 @@ function DoctorConnect({ onBack }) {
 
         {/* Doctor Listings Section */}
         <div className="mb-6 md:mb-8">
-          <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b] mb-4 md:mb-6">
             Showing doctors for {searchQuery || "Diabetes"}
           </h2>
 
@@ -317,7 +317,7 @@ function DoctorConnect({ onBack }) {
                 />
               </svg>
             </div>
-            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b]">
               Looking for ongoing care?
             </h2>
           </div>

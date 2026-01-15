@@ -3,8 +3,18 @@ import { useState } from "react";
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
 
+  const togglePreference = (key) => {
+    setProfileData((prev) => ({
+      ...prev,
+      preferences: {
+        ...prev.preferences,
+        [key]: !prev.preferences[key],
+      },
+    }));
+  };
+
   // Profile data
-  const profileData = {
+  const [profileData, setProfileData] = useState({
     personalInfo: {
       name: "Rahul Sharma",
       email: "rahul.sharma@example.com",
@@ -45,14 +55,14 @@ function Profile() {
       emailUpdates: true,
       smsAlerts: false,
     },
-  };
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 lg:bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 xl:px-12 py-4 md:py-6 lg:py-8">
         {/* Header */}
         <div className="mb-6 md:mb-8">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#109def] mb-2">
             Profile
           </h1>
           <p className="text-sm md:text-base text-gray-600">
@@ -125,7 +135,7 @@ function Profile() {
         {/* Personal Information Section */}
         <div className="bg-white rounded-xl p-4 md:p-5 lg:p-6 mb-6 md:mb-8 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b]">
               Personal Information
             </h3>
             <button className="text-blue-500 hover:text-blue-600 text-sm md:text-base font-medium transition-colors">
@@ -269,7 +279,7 @@ function Profile() {
         {/* Medical Information Section */}
         <div className="bg-white rounded-xl p-4 md:p-5 lg:p-6 mb-6 md:mb-8 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b]">
               Medical Information
             </h3>
             <button className="text-blue-500 hover:text-blue-600 text-sm md:text-base font-medium transition-colors">
@@ -489,7 +499,7 @@ function Profile() {
         {/* Emergency Contacts Section */}
         <div className="bg-white rounded-xl p-4 md:p-5 lg:p-6 mb-6 md:mb-8 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b]">
               Emergency Contacts
             </h3>
             <button className="text-blue-500 hover:text-blue-600 text-sm md:text-base font-medium transition-colors">
@@ -560,7 +570,7 @@ function Profile() {
         {/* Preferences Section */}
         <div className="bg-white rounded-xl p-4 md:p-5 lg:p-6 mb-6 md:mb-8 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b]">
               Preferences
             </h3>
             <button className="text-blue-500 hover:text-blue-600 text-sm md:text-base font-medium transition-colors">
@@ -641,9 +651,10 @@ function Profile() {
                 <input
                   type="checkbox"
                   checked={profileData.preferences.notifications}
+                  onChange={() => togglePreference("notifications")}
                   className="sr-only peer"
-                  readOnly
                 />
+
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
             </div>
@@ -678,9 +689,10 @@ function Profile() {
                 <input
                   type="checkbox"
                   checked={profileData.preferences.emailUpdates}
+                  onChange={() => togglePreference("emailUpdates")}
                   className="sr-only peer"
-                  readOnly
                 />
+
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
             </div>
@@ -715,9 +727,10 @@ function Profile() {
                 <input
                   type="checkbox"
                   checked={profileData.preferences.smsAlerts}
+                  onChange={() => togglePreference("smsAlerts")}
                   className="sr-only peer"
-                  readOnly
                 />
+
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
             </div>
@@ -726,7 +739,7 @@ function Profile() {
 
         {/* Account Actions */}
         <div className="bg-white rounded-xl p-4 md:p-5 lg:p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+          <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#156a9b] mb-4 md:mb-6">
             Account Actions
           </h3>
           <div className="space-y-3">

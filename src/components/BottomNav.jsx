@@ -144,7 +144,7 @@ function BottomNav({ activeTab, onTabChange, className = "" }) {
               aria-label={item.label}
             >
               <div className="shrink-0">{item.icon}</div>
-              <span className="text-sm font-medium">{item.label}</span>
+              <span className="text-shadow-md font-semibold">{item.label}</span>
             </button>
           ))}
         </div>
@@ -161,7 +161,7 @@ function BottomNav({ activeTab, onTabChange, className = "" }) {
             aria-label="Profile"
           >
             <div className="shrink-0">{navItems[navItems.length - 1].icon}</div>
-            <span className="text-sm font-medium">
+            <span className="text-shadow-md font-semibold">
               {navItems[navItems.length - 1].label}
             </span>
           </button>

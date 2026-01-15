@@ -67,7 +67,7 @@ function ActionCards({ onCardClick }) {
 
   return (
     <div className="w-full px-0 -mt-2 md:mt-0 lg:mt-2">
-      <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-gray-800 mb-4 md:mb-6 text-center md:text-left">
+      <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-[#3176a7] mb-4 md:mb-6 text-center md:text-left">
         What would you like to do?
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-4 xl:gap-6">
