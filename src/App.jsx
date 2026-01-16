@@ -110,7 +110,6 @@ function App() {
         <div className="lg:flex lg:h-screen">
           {/* Desktop Sidebar */}
           <div className="hidden lg:flex lg:flex-col lg:w-80 xl:w-96 lg:h-screen lg:bg-white lg:border-r lg:border-gray-200">
-
             <div className="lg:pt-8 lg:px-6 ">
               <Header />
             </div>
@@ -124,10 +123,8 @@ function App() {
 
           {/* Main Content Area */}
           <main className="flex-1 flex flex-col lg:h-screen">
-
             {/* Desktop Back Button */}
             <div className="hidden lg:block lg:sticky lg:top-0 lg:z-20 lg:bg-white lg:border-b lg:border-gray-200 lg:px-8 lg:py-4">
-
               <button
                 onClick={handleBackToHome}
                 className={`flex items-center gap-2 text-blue-500 hover:text-blue-600 transition-colors group ${
@@ -154,7 +151,6 @@ function App() {
 
             {/* Content */}
             <div className="flex-1 lg:overflow-y-auto pb-20 lg:pb-0">
-
               {activeTab === "reports" ? (
                 <Reports />
               ) : activeTab === "overview" ? (
