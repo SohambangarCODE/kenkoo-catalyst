@@ -187,7 +187,7 @@ function App() {
                   </div>
 
                   {/* Messages */}
-                  <div className="flex-1 overflow-y-auto px-4 lg:px-12 xl:px-16 py-6 lg:py-8">
+                  <div className="flex-1 overflow-y-auto px-4 lg:px-12 xl:px-16 pt-6 pb-28 lg:py-8">
                     <div className="max-w-4xl xl:max-w-5xl mx-auto space-y-6">
                       {messages.map((msg, index) => (
                         <div
@@ -226,7 +226,7 @@ function App() {
                   </div>
 
                   {/* Search Bar at Bottom */}
-                  <div className="lg:sticky lg:bottom-0 lg:bg-white lg:border-t lg:border-gray-200 lg:px-8 lg:py-6">
+                  <div className="fixed bottom-16 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 z-50 lg:sticky lg:bottom-0 lg:px-8 lg:py-6 mb-4">
                     <div className="max-w-4xl xl:max-w-5xl mx-auto">
                       <SearchBar
                         onSendMessage={handleSendMessage}

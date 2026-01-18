@@ -6,12 +6,12 @@ const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
 
 // Current stable fast model with good free tier support
 const GEMINI_MODEL = "gemini-2.5-flash";
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`; // ← Changed to v1beta
 
 // Log API key status (safe - only shows presence, not the key itself)
 console.log(
   "Gemini API Key Status:",
-  GEMINI_API_KEY ? "✓ Loaded" : "✗ Missing"
+  GEMINI_API_KEY ? "✓ Loaded" : "✗ Missing",
 );
 
 // In-memory chat history (simple approach for single-user apps)
@@ -26,7 +26,7 @@ let chatHistory = [];
 export async function sendMessageToGemini(message) {
   if (!GEMINI_API_KEY.trim()) {
     throw new Error(
-      "Gemini API key missing. Set VITE_GEMINI_API_KEY in .env and restart the server."
+      "Gemini API key missing. Set VITE_GEMINI_API_KEY in .env and restart the server.",
     );
   }
 
@@ -39,8 +39,7 @@ export async function sendMessageToGemini(message) {
 
     const requestBody = {
       contents: chatHistory,
-      systemInstruction: {
-        role: "system",
+      system_instruction: {
         parts: [
           {
             text:
@@ -104,14 +103,14 @@ export async function sendMessageToGemini(message) {
           "⚠️ API quota exceeded. Free tier has strict daily limits (~20–50 requests).\n\n" +
             "• Wait until tomorrow (resets at midnight Pacific Time)\n" +
             "• Or enable billing for much higher limits\n" +
-            "Check usage: https://aistudio.google.com/app/usage"
+            "Check usage: https://aistudio.google.com/app/usage",
         );
       }
 
       // Authentication errors
       if (response.status === 401 || response.status === 403) {
         throw new Error(
-          "Invalid or unauthorized API key. Double-check VITE_GEMINI_API_KEY in your .env file."
+          "Invalid or unauthorized API key. Double-check VITE_GEMINI_API_KEY in your .env file.",
         );
       }
 
