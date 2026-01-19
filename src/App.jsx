@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Header, SearchBar, ActionCards, BottomNav } from "./components";
 import { Hero } from "./sections";
-import { sendMessageToGemini, clearChatHistory } from "./utils/gemini";
 import Reports from "./pages/Reports";
 import DoctorConnect from "./pages/DoctorConnect";
 import HealthOverview from "./pages/HealthOverview";
 import Profile from "./pages/Profile";
+import { sendMessageToGemini } from "./ai/geminiService";
+
 
 function App() {
   // Verify API key on mount
@@ -83,11 +84,7 @@ function App() {
   };
 
   const handleBackToHome = () => {
-    const handleBackToHome = () => {
-      setMessages([]);
-      clearChatHistory(); // This resets Gemini's conversation memory
-    };
-    setMessages([]);
+  setMessages([]);
   };
 
   const handleFloatingIconClick = (iconId) => {

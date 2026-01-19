@@ -9,11 +9,11 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { sendMessageToGemini } from "../ai/geminiService";
 
 console.log(
   "API Key from import.meta.env:",
-  import.meta.env.VITE_GEMINI_API_KEY ? "Loaded" : "Missing"
+  import.meta.env.VITE_GEMINI_API_KEY ? "Loaded" : "Missing",
 );
 
 const GeminiChatbot = () => {
@@ -33,36 +33,6 @@ const GeminiChatbot = () => {
   const [hasSpeechSupport, setHasSpeechSupport] = useState(false);
 
   // Initialize Gemini AI with proper error handling
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-  if (!apiKey || apiKey.trim() === "") {
-    console.error(
-      "Gemini API key is missing. Please set VITE_GEMINI_API_KEY in your .env file."
-    );
-  }
-
-  const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
-  const model = genAI
-    ? genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 2048,
-          topP: 0.95,
-          topK: 40,
-        },
-        safetySettings: [
-          {
-            category: "HARM_CATEGORY_HARASSMENT",
-            threshold: "BLOCK_MEDIUM_AND_ABOVE",
-          },
-          {
-            category: "HARM_CATEGORY_HATE_SPEECH",
-            threshold: "BLOCK_MEDIUM_AND_ABOVE",
-          },
-        ],
-      })
-    : null;
 
   // Check speech support
   useEffect(() => {
@@ -111,14 +81,6 @@ const GeminiChatbot = () => {
     e.preventDefault();
     if (!prompt.trim() || loading) return;
 
-    // Check if API key and model are available
-    if (!model || !genAI) {
-      const errorMsg =
-        "API key is missing. Please set VITE_GEMINI_API_KEY in your .env file and restart the server.";
-      setChatHistory((prev) => [...prev, { role: "ai", text: errorMsg }]);
-      return;
-    }
-
     const userMessage = prompt.trim();
     setChatHistory((prev) => [...prev, { role: "user", text: userMessage }]);
     setPrompt("");
@@ -126,7 +88,12 @@ const GeminiChatbot = () => {
 
     try {
       // Enhanced system instruction for detailed health-related responses
-      const systemInstruction = `You are Kenkoo AI, a knowledgeable and empathetic healthcare assistant. Your role is to provide detailed, accurate, and helpful information about health and wellness topics.
+
+      const systemPrompt = {
+        role: "model",
+        parts: [
+          {
+            text: `You are Kenkoo AI, a knowledgeable and empathetic healthcare assistant. Your role is to provide detailed, accurate, and helpful information about health and wellness topics.
 
 Guidelines for your responses:
 1. Provide comprehensive, detailed answers that cover all aspects of the question
@@ -138,24 +105,16 @@ Guidelines for your responses:
 7. Use bullet points or numbered lists when appropriate for better readability
 8. Include practical tips and actionable advice when relevant
 
-Remember: You are not a replacement for professional medical care. Always encourage users to seek professional medical advice for serious health concerns.`;
+Remember: You are not a replacement for professional medical care. Always encourage users to seek professional medical advice for serious health concerns.`,
+          },
+        ],
+      };
 
-      const chat = model.startChat({
-        history: chatHistory.map((msg) => ({
-          role: msg.role === "user" ? "user" : "model",
-          parts: [{ text: msg.text }],
-        })),
-        systemInstruction: systemInstruction,
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 2048,
-          topP: 0.95,
-          topK: 40,
-        },
-      });
-
-      const result = await chat.sendMessage(userMessage);
-      const text = result.response.text();
+      const text = await sendMessageToGemini(
+        userMessage,
+        chatHistory,
+        systemPrompt,
+      );
 
       // TTS: Speak response
       if (SpeechSynthesis && hasSpeechSupport) {
@@ -169,7 +128,7 @@ Remember: You are not a replacement for professional medical care. Always encour
         SpeechSynthesis.speak(utterance);
       }
 
-      setChatHistory((prev) => [...prev, { role: "ai", text }]);
+      setChatHistory((prev) => [...prev, { role: "model", text }]);
     } catch (error) {
       console.error("Gemini API Error:", error);
       let errorMsg = "";
@@ -208,7 +167,7 @@ Remember: You are not a replacement for professional medical care. Always encour
         }`;
       }
 
-      setChatHistory((prev) => [...prev, { role: "ai", text: errorMsg }]);
+      setChatHistory((prev) => [...prev, { role: "model", text: errorMsg }]);
     } finally {
       setLoading(false);
     }

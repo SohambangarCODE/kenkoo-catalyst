@@ -1,5 +1,4 @@
 import SearchBar from "../components/SearchBar";
-import useGeminiChat from "./useGeminiChat";
 import ReactMarkdown from "react-markdown";
 import { useState, useRef, useEffect } from "react";
 
