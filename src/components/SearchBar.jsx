@@ -30,7 +30,7 @@ function SearchBar({
     if (typeof file.type === "string" && file.type.startsWith("image/"))
       return true;
     const name = typeof file.name === "string" ? file.name : "";
-    return /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i.test(name);
+    return /(\.png|\.jpe?g|\.webp|\.gif|\.bmp|\.tiff?)$/i.test(name);
   };
 
   const isPdfFile = (file) => {
@@ -169,10 +169,10 @@ function SearchBar({
               onVoiceIconClick();
             }
           }}
-          disabled={isLoading || isListening}
+          disabled={isLoading}
           className={`absolute right-12 lg:right-14 transition-all duration-200 z-10 ${
             isListening
-              ? "text-red-500 opacity-60 cursor-not-allowed"
+              ? "text-red-500 opacity-90 cursor-pointer"
               : "text-blue-500 hover:text-blue-600 opacity-100"
           } ${
             isListening ? "animate-pulse" : ""
@@ -182,22 +182,33 @@ function SearchBar({
             isListening ? "Listening... Click to stop" : "Start voice input"
           }
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={`h-5 w-5 lg:h-6 lg:w-6 ${
-              isListening ? "animate-pulse" : ""
-            }`}
-            fill={isListening ? "currentColor" : "none"}
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-            />
-          </svg>
+          {isListening ? (
+            // Listening indicator: stop square
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 lg:h-6 lg:w-6"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <rect x="6" y="6" width="12" height="12" rx="2" />
+            </svg>
+          ) : (
+            // Default mic icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 lg:h-6 lg:w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+              />
+            </svg>
+          )}
         </button>
 
         {/* Send button */}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Header, SearchBar, ActionCards, BottomNav } from "./components";
 import { Hero } from "./sections";
 import Reports from "./pages/Reports";
@@ -24,6 +24,15 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("ai");
+
+  // Voice assistant state
+  const [isListening, setIsListening] = useState(false);
+  const [voiceTranscript, setVoiceTranscript] = useState("");
+  const recognitionRef = useRef(null);
+
+  // Check speech API
+  const SpeechRecognition =
+    typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
   const handleSendMessage = async (message) => {
     // Add user message immediately
@@ -72,6 +81,86 @@ function App() {
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Voice: start/stop and populate input (no auto-send)
+  const handleVoiceInput = () => {
+    console.log("🎤 Mic button clicked in App", { isListening, hasAPI: !!SpeechRecognition });
+
+    if (!SpeechRecognition) {
+      alert("Voice input not supported. Please use Chrome or Edge browser.");
+      return;
+    }
+
+    if (!window.isSecureContext) {
+      alert(
+        "🎤 Voice input requires HTTPS or localhost.\n\n" +
+          "Please open this app on:\n" +
+          "• http://localhost\n" +
+          "• or a HTTPS website"
+      );
+      return;
+    }
+
+    // Stop if already listening
+    if (isListening && recognitionRef.current) {
+      console.log("🛑 Stopping recognition");
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.error("Error stopping:", e);
+      }
+      setIsListening(false);
+      return;
+    }
+
+    // Create new recognition instance
+    if (!isListening) {
+      console.log("🎙️ Creating new recognition instance");
+      const rec = new SpeechRecognition();
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.lang = "en-US";
+
+      rec.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        console.log("🎧 Voice input received:", transcript);
+        setVoiceTranscript(transcript);
+        setIsListening(false);
+        // Do NOT auto-send; user can edit and send manually
+      };
+
+      rec.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+        setIsListening(false);
+        if (event.error === "not-allowed") {
+          alert(
+            "Microphone permission denied. Please allow microphone access in your browser settings."
+          );
+        }
+      };
+
+      rec.onstart = () => {
+        console.log("✅ Listening started successfully");
+        setIsListening(true);
+      };
+
+      rec.onend = () => {
+        console.log("🔚 Recognition ended");
+        setIsListening(false);
+      };
+
+      recognitionRef.current = rec;
+
+      try {
+        console.log("🚀 Starting recognition...");
+        rec.start();
+      } catch (error) {
+        console.error("❌ Error starting recognition:", error);
+        setIsListening(false);
+        alert(`Error starting voice recognition: ${error.message}`);
+      }
     }
   };
 
@@ -228,6 +317,10 @@ function App() {
                       <SearchBar
                         onSendMessage={handleSendMessage}
                         isLoading={isLoading}
+                        onVoiceIconClick={handleVoiceInput}
+                        isListening={isListening}
+                        voiceTranscript={voiceTranscript}
+                        onVoiceTranscriptSet={() => setVoiceTranscript("")}
                       />
                     </div>
                   </div>
@@ -242,6 +335,10 @@ function App() {
                       <SearchBar
                         onSendMessage={handleSendMessage}
                         isLoading={isLoading}
+                        onVoiceIconClick={handleVoiceInput}
+                        isListening={isListening}
+                        voiceTranscript={voiceTranscript}
+                        onVoiceTranscriptSet={() => setVoiceTranscript("")}
                       />
                     </div>
                   </div>
