@@ -100,7 +100,7 @@ function Reports() {
     },
     {
       id: 5,
-      title: "Other Documents",
+      title: "Radiology Reports",
       count: 3,
       date: "Feb 4",
       icon: (
